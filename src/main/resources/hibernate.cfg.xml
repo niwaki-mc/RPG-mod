@@ -1,0 +1,17 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+        <property name="hibernate.connection.url">jdbc:sqlite:C:/Tests/Base.db</property>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.SQLiteDialect</property>
+
+        <!-- Mention your mapped class here -->
+        <mapping class="fr.niwaki_mc.commons.models.Classes" />
+    </session-factory>
+</hibernate-configuration>

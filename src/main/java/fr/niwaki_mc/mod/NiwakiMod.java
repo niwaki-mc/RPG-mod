@@ -2,6 +2,7 @@ package fr.niwaki_mc.mod;
 
 import com.mojang.logging.LogUtils;
 import fr.niwaki_mc.commons.Commons;
+import fr.niwaki_mc.mod.events.server.ServerEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -18,7 +19,7 @@ import org.slf4j.Logger;
 public class NiwakiMod
 {
 
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public NiwakiMod()
     {
@@ -27,6 +28,7 @@ public class NiwakiMod
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new ServerEvents());
 
         modEventBus.addListener(this::addCreative);
     }
@@ -37,12 +39,6 @@ public class NiwakiMod
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
-    {
-
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
     {
 
     }
