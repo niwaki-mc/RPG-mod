@@ -2,8 +2,6 @@ package fr.niwaki_mc.mod.events.server;
 
 import fr.niwaki_mc.commons.Commons;
 import fr.niwaki_mc.commons.persistence.ClassesManager;
-import fr.niwaki_mc.commons.persistence.HibernateUtils;
-import fr.niwaki_mc.mod.NiwakiMod;
 import fr.niwaki_mc.mod.commands.ClassesCommand;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
@@ -17,12 +15,12 @@ public class ServerEvents {
     public void onServerStarting(ServerStartingEvent event)
     {
         ClassesCommand.register(event.getServer().getCommands().getDispatcher());
-        new ClassesManager().insertDefaultClasses();
-        NiwakiMod.LOGGER.info("Server started");
+        ClassesManager.getInstance().start();
+        ClassesManager.getInstance().insertDefaultClasses();
     }
 
     @SubscribeEvent
     public void onServerStopping(ServerStoppingEvent event) {
-        HibernateUtils.getSessionFactory().close();
+        ClassesManager.getInstance().shutdown();
     }
 }

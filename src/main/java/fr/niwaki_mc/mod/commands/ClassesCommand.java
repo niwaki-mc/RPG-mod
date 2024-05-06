@@ -19,7 +19,7 @@ public class ClassesCommand {
     }
 
     private static int execute(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        ClassesManager manager = new ClassesManager();
+        ClassesManager manager =  ClassesManager.getInstance();
         List<Classes> classesList = manager.getAllClasses();
 
         for (Classes classes : classesList) {
