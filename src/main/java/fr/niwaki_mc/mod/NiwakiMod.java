@@ -2,6 +2,7 @@ package fr.niwaki_mc.mod;
 
 import com.mojang.logging.LogUtils;
 import fr.niwaki_mc.commons.Commons;
+import fr.niwaki_mc.mod.configs.ConfigHandler;
 import fr.niwaki_mc.mod.events.server.ServerEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -9,7 +10,9 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -29,6 +32,8 @@ public class NiwakiMod
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ServerEvents());
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ConfigHandler.SERVER_SPEC);
 
         modEventBus.addListener(this::addCreative);
     }

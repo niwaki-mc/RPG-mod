@@ -1,14 +1,13 @@
 package fr.niwaki_mc.commons.persistence;
 
+import fr.niwaki_mc.mod.NiwakiMod;
+import fr.niwaki_mc.mod.configs.ConfigHandler;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MySqlHelper {
-
-    private static final String URL = "jdbc:mysql://localhost:3306/tests";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
 
     private static Connection connection;
 
@@ -19,10 +18,20 @@ public class MySqlHelper {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            NiwakiMod.LOGGER.error(e.getMessage(), e);
         }
         if(connection == null || connection.isClosed()) {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            String url = String.format("jdbc:%s://%s:%d/%s",
+                    ConfigHandler.SERVER.dbType.get().name().toLowerCase(),
+                    ConfigHandler.SERVER.host.get(),
+                    ConfigHandler.SERVER.port.get(),
+                    ConfigHandler.SERVER.database.get());
+
+            connection = DriverManager.getConnection(
+                    url,
+                    ConfigHandler.SERVER.user.get(),
+                    ConfigHandler.SERVER.password.get()
+            );
         }
         return connection;
     }
